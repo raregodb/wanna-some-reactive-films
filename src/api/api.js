@@ -2,11 +2,9 @@ const key = import.meta.env.VITE_OMDB_KEY;
 
 export async function searchAll(str, type, page=1) {
     if (type === "all") type = undefined;
-    try {
-        const response = await fetch(`http://www.omdbapi.com/?apikey=${key}&s=${str}${type ? `&type=${type}` : ""}&page=${page}`);
-        return await response.json();
-    } catch (error) {
-        console.log(error);
-        throw error;
-    }
+    const params = new URLSearchParams({apikey: key, s: str, page});
+    if (type) params.set("type", type);
+    const response = await fetch(`https://www.omdbapi.com/?${params}`);
+    if (!response.ok) throw new Error(`Request failed: ${response.status}`);
+    return await response.json();
 }

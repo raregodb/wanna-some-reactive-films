@@ -1,18 +1,17 @@
 import Film from "./Film.jsx";
 
 export default function FilmList(props) {
-    console.log(props);
-    const {films, pending, type} = props;
-
-    if (!films) return (
-        <div className={"content-horizontal"}><span style={{fontSize: "24px", color: "white"}}>No films were found</span></div>
-    );
+    const {films, pending, type, error} = props;
 
     if (pending) return (
         <div className="progress">
             <div className="indeterminate"></div>
         </div>
     )
+
+    if (!films) return (
+        <div className={"content-horizontal"}><span style={{fontSize: "24px", color: "white"}}>{error ?? "No films were found"}</span></div>
+    );
 
     const filteredFilms = type === "all" ? [...films] : [...films].filter(film => film.Type === type)
 

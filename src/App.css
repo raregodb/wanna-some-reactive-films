@@ -92,3 +92,10 @@
         height: 100%;
     }
 }
+
+.film-poster-placeholder {
+    height: 350px;
+    gap: 0;
+    color: grey;
+    background-color: #2a2828;
+}

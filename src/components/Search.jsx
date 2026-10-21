@@ -14,11 +14,11 @@ export class Search extends React.Component {
     render() {
         return (
             <div className={"content-vertical"} style={{padding:'10px', justifyContent: "left", alignItems: "start"}}>
-                <div className="content-horizontal">
+                <form className="content-horizontal" onSubmit={(e) => {e.preventDefault(); this.props.handleSearch(this.state.search)}}>
                     <input value={this.state.search} onChange={(e) => {this.setState({search: e.target.value})}} name={"search"} placeholder={"Search by name..."} style={{color: "white"}}/>
 
-                    <a onClick={() => this.props.handleSearch(this.state.search)} className="waves-effect waves-light btn grey darken-4">search<i className="material-icons right">cloud</i></a>
-                </div>
+                    <button type="submit" className="waves-effect waves-light btn grey darken-4">search<i className="material-icons right">cloud</i></button>
+                </form>
 
 
                 <div className={"content-horizontal"}>
