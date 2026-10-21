@@ -1,5 +1,5 @@
 export default function Film(props) {
-    const {film} = props;
+    const {film, onSelect} = props;
 
     const types = {
         movie: "Movie",
@@ -7,7 +7,9 @@ export default function Film(props) {
     }
 
     return (
-        <div className="film-card">
+        <div className="film-card film-card--clickable" role="button" tabIndex={0}
+             onClick={() => onSelect(film.imdbID)}
+             onKeyDown={(e) => {if (e.key === "Enter") onSelect(film.imdbID)}}>
             <div className="card-image waves-effect waves-block waves-light film-poster">
                 {film.Poster && film.Poster !== "N/A" ? (
                     <img alt={`${film.Title ?? "film"} poster`} className="activator film-poster" src={film.Poster} />

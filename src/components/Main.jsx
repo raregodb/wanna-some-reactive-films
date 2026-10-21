@@ -2,6 +2,7 @@ import React from "react";
 import {Search} from "./Search.jsx";
 import { searchAll } from "../api/api.js"
 import FilmList from "./FilmList.jsx";
+import FilmDialog from "./FilmDialog.jsx";
 
 export  default class Main extends React.Component {
 
@@ -9,7 +10,8 @@ export  default class Main extends React.Component {
         films: [],
         type: "all",
         isLoading: false,
-        error: null
+        error: null,
+        selectedFilmId: null
     }
 
     handleSearch = (value) => {
@@ -28,11 +30,22 @@ export  default class Main extends React.Component {
         this.setState({type: e.target.value});
     }
 
+    handleSelectFilm = (id) => {
+        this.setState({selectedFilmId: id});
+    }
+
+    handleCloseFilm = () => {
+        this.setState({selectedFilmId: null});
+    }
+
     render () {
         return (
             <main className="container content grey darken-3">
                 <Search type={this.state.type} handleSearch={this.handleSearch} handleChangeType={this.handleChangeType} />
-                <FilmList films={this.state.films} pending={this.state.isLoading} type={this.state.type} error={this.state.error} />
+                <FilmList films={this.state.films} pending={this.state.isLoading} type={this.state.type} error={this.state.error} onSelect={this.handleSelectFilm} />
+                {this.state.selectedFilmId && (
+                    <FilmDialog key={this.state.selectedFilmId} id={this.state.selectedFilmId} onClose={this.handleCloseFilm} />
+                )}
             </main>
         )
     }

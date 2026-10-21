@@ -1,7 +1,7 @@
 import Film from "./Film.jsx";
 
 export default function FilmList(props) {
-    const {films, pending, type, error} = props;
+    const {films, pending, type, error, onSelect} = props;
 
     if (pending) return (
         <div className="progress">
@@ -18,7 +18,7 @@ export default function FilmList(props) {
     return (
         <div className="wrapper">
             {filteredFilms.map((item) => (
-                <Film key={item.imdbID} film={item} />
+                <Film key={item.imdbID} film={item} onSelect={onSelect} />
             ))}
         </div>
     )
